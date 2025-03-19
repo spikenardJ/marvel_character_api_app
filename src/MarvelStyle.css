@@ -1,6 +1,10 @@
 body {
     text-align: center;
     background-image: url("./images/marvel-pic.jpg");
+    background-size: cover; /* Scales image to cover the entire background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
+    min-height: 100vh; /* Ensures body takes full viewport height */
 }
 
 .home-welcome {
@@ -16,11 +20,12 @@ h1 {
 ul{
     background-color: rgb(70, 119, 157);
     border: 2px solid red;
-    width: 40%;
+    width: 90%; /* More flexible */
+    max-width: 400px; /* Limits width on larger screens */
     text-align: left;
     padding: 20px;
     list-style-type: none;
-    margin: 0 30px;
+    margin: 0 auto;
     border-radius: 15px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
@@ -32,15 +37,22 @@ ul, li {
   
 img {
     border-radius: 15px;
-    width: 100px;
+    width: 100%; /* Scales with parent */
+    max-width: 150px; /* Limits size on larger screens */
     border: 2px solid navy;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
   
-h2, h3, li {
+h2, h3, li, p {
     color: navy;
-    margin: 20px 30px;
+    margin: 10px 15px; /* Reduced for mobile */
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+@media (max-width: 768px) {
+    h2, h3, li, p {
+        margin: 5px 10px; /* Further reduced for mobile */
+    }
 }
 
 .description {
@@ -50,19 +62,22 @@ h2, h3, li {
     box-shadow: 0 0 10px black;
     border-radius: 15px;
     padding: 10px;
-    border: 2px black;
-    width: 30%;
+    border: 2px solid black; /* Fixed typo: "border: 2px black" to "border: 2px solid black" */
+    width: 80%; /* Increased for mobile */
+    max-width: 500px; /* Limits width on larger screens */
     height: auto;
     text-align: center;
-    margin-left: 33%;
+    margin: 20px auto; /* Centers on all devices */
 
 }
 
 .comics-list, .comics-list-name {
     background-color: rgb(70, 119, 157);
-    width: 20%;
+    width: 90%; /* More flexible for mobile */
+    max-width: 300px; /* Limits width on larger screens */
     border: 2px solid red;
     border-radius: 15px;
+    margin: 0 auto; /* Centers the list */
 }
 
 p {
@@ -81,8 +96,10 @@ h2 {
     
 .character-list {
     margin-top: 20px;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Reduced min width for mobile */
+    gap: 15px; /* Slightly smaller gap */
+    padding: 0 10px; /* Adds padding to prevent edge overflow */
 }
     
 .character-list h2 {
@@ -97,14 +114,14 @@ h2 {
   
 .character-card {
     cursor: pointer;
-    border: 1px solid #ccc;
+    border: 6px solid navy;
     background-color: white;
     border-radius: 20px;
-    border: 6px solid navy;
     box-shadow: 0 3px 6px rgba(0, 0, 10, 0.4);
-    margin: 30px;
-    padding: 10px 30px;
-    width: 130px;
+    margin: 10px; /* Reduced for mobile */
+    padding: 10px;
+    width: 100%; /* Full width of grid cell */
+    max-width: 200px; /* Limits card width */
     text-align: center;
     text-decoration: none;
 }
@@ -112,6 +129,8 @@ h2 {
 .character-thumbnail {
     width: 100%;
     height: auto;
+    aspect-ratio: 1 / 1; /* Maintains square aspect ratio */
+    object-fit: cover; /* Prevents distortion */
 }
   
 .character-detail {
@@ -124,7 +143,6 @@ h2 {
 
 nav {
     background-color: navy;
-    overflow: hidden;
     border-radius: 15px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     box-shadow: 0 0 10px black;
@@ -136,7 +154,7 @@ nav a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 40px;
+    padding: 14px 20px; /* Reduced padding for mobile */
     text-decoration: none;
 }
 
@@ -154,4 +172,22 @@ nav a.active {
     content: "";
     clear: both;
     display: table;
+}
+
+@media (max-width: 768px) {
+    nav a {
+        float: none; /* Stack links vertically */
+        display: block;
+        padding: 10px;
+    }
+}
+
+.home-welcome {
+    margin-top: 30px; /* Reduced for mobile */
+}
+
+@media (max-width: 768px) {
+    .home-welcome {
+        margin-top: 20px;
+    }
 }

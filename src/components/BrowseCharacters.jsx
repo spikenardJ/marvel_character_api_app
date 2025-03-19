@@ -27,15 +27,23 @@ const BrowseCharacters = ({ onCharacterClick }) => {
 
     return (
         <div className="character-list">
-            {characters.map((character) => (
-                <Link key={character.id} to={`/character-details/${character.id}`} className="character-card">
-                    <div>
-                        <h3>{character.name}</h3>
-                        <img src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
-                    </div>
-                </Link>
-            ))}
+          {characters.map((character) => (
+            <Link
+              key={character.id}
+              to={`/character-details/${character.id}`}
+              className="character-card"
+            >
+              <div>
+                <h3>{character.name}</h3>
+                <img
+                  src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                  alt={character.name}
+                  className="character-thumbnail"
+                />
+              </div>
+            </Link>
+          ))}
         </div>
-    );
+      );
 };
 export default BrowseCharacters;

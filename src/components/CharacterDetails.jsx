@@ -43,11 +43,15 @@ const CharacterDetails = () => {
           <h2>{character.name}</h2>
           <p className="description">{character.description || "No description available."}</p>
           {character.thumbnail && (
-                <img src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
-            )}
+            <img
+              src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+              alt={character.name}
+              className="character-thumbnail"
+            />
+          )}
           <h3 className="comics-list-name">Comics:</h3>
           <ul className="comics-list">
-            {character.name}{character.comics.items.length > 0 ? (
+            {character.comics.items.length > 0 ? (
               character.comics.items.map((comic, index) => (
                 <li key={index}>{comic.name}</li>
               ))
