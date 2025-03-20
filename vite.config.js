@@ -10,7 +10,6 @@ export default defineConfig({
     sourcemap: true,
     minify: 'terser',
     rollupOptions: {
-      external: ['axios'],  // Add this line
       output: {
         manualChunks: undefined
       }

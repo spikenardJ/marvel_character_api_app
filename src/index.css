@@ -1,0 +1,117 @@
+/* Base styles */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Container styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Character grid styles */
+.character-grid {
+  display: grid;
+  gap: 2rem;
+  padding: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Character card styles */
+.character-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.character-card:hover {
+  transform: translateY(-4px);
+}
+
+.character-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Search and filter styles */
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 0.5rem;
+}
+
+/* Button styles */
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .character-grid {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .search-bar {
+    padding: 0.5rem;
+  }
+
+  .character-card {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0.5rem;
+  }
+
+  .character-grid {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Navigation styles */
+nav {
+  width: 100%;
+  padding: 1rem;
+  background: #202020;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 0.5rem;
+  }
+} 

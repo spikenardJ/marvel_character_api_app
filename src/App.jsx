@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, NavLink } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import BrowseCharacters from "./components/BrowseCharacters";
 import CharacterDetails from "./components/CharacterDetails";
@@ -10,15 +10,17 @@ import "./MarvelStyle.css";
 
 function App() {
     return (
-        <div>
-          <NavigationBar />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/browse-characters" element={<BrowseCharacters />} />
-                <Route path="/character-details/:id" element={<CharacterDetails />} />
-                <Route path="/comics" element={<Comics />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+        <div className="app-container">
+            <NavigationBar />
+            <main className="container">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/characters" element={<BrowseCharacters />} />
+                    <Route path="/characters/:id" element={<CharacterDetails />} />
+                    <Route path="/comics" element={<Comics />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </main>
         </div>
     );
 }
