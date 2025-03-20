@@ -130,7 +130,9 @@ h2 {
 }
   
 .character-detail {
-    margin-top: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
   
 .character-detail h2 {
@@ -346,6 +348,114 @@ h2 {
     .loading, .error, .no-results {
         margin: 0.5rem;
         padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Character Detail Styles */
+.character-detail-card {
+    background-color: rgb(70, 119, 157);
+    border: 6px solid navy;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    gap: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.character-detail-card img {
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid navy;
+    max-width: none;
+}
+
+.character-info {
+    flex: 1;
+    text-align: left;
+}
+
+.character-info h1 {
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.character-info .description {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.comics-section, .series-section {
+    margin-top: 20px;
+}
+
+.comics-section h2, .series-section h2 {
+    color: white;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.comics-list, .series-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.comics-list li, .series-list li {
+    color: white;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.comics-list li:last-child, .series-list li:last-child {
+    border-bottom: none;
+}
+
+/* Mobile Responsive Styles for Character Details */
+@media (max-width: 768px) {
+    .character-detail-card {
+        flex-direction: column;
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .character-detail-card img {
+        width: 100%;
+        height: 300px;
+        margin: 0 auto;
+    }
+
+    .character-info {
+        text-align: center;
+    }
+
+    .comics-list, .series-list {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .character-detail {
+        padding: 10px;
+    }
+
+    .character-detail-card {
+        padding: 10px;
+    }
+
+    .character-detail-card img {
+        height: 250px;
+    }
+
+    .character-info .description {
         font-size: 1rem;
     }
 }

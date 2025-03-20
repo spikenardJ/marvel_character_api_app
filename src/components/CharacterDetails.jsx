@@ -1,66 +1,91 @@
-import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { hash, timeStamp, publicKey } from "../config"
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { hash, timeStamp, publicKey } from "../config";
 
 const CharacterDetails = () => {
+    const { id } = useParams();
     const [character, setCharacter] = useState(null);
     const [loading, setLoading] = useState(true);
-    const { id } = useParams();
-    // const publicKey = "4d52fb3fa1ef52af3d6b38218aff5477";
-    // const ts = 1;
-    // const hash = "a80ea7d0806646c1f3b6bf37422fc6fd";
-    const apiUrl = `http://gateway.marvel.com/v1/public/characters/${id}?ts=${timeStamp}&limit=100&apikey=${publicKey}&hash=${hash}`;
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        console.log(id)
-        const fetchCharacterDetail = async () => {
-          try {
-            const response = await axios.get(`${apiUrl}`);
-            setCharacter(response.data.data.results[0]);
-          } catch (error) {
-            console.error("Error fetching character details:", error);
-          } finally {
-            setLoading(false);
-          }
+        const fetchCharacterDetails = async () => {
+            try {
+                setLoading(true);
+                const url = `https://gateway.marvel.com/v1/public/characters/${id}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`;
+                
+                const response = await axios.get(url);
+                
+                if (response.data?.data?.results?.[0]) {
+                    setCharacter(response.data.data.results[0]);
+                    setError(null);
+                } else {
+                    setError('Character not found');
+                }
+            } catch (err) {
+                console.error('API Error:', err);
+                setError(err.message || 'Failed to fetch character details');
+            } finally {
+                setLoading(false);
+            }
         };
-    
+
         if (id) {
-          fetchCharacterDetail();
+            fetchCharacterDetails();
         }
-      }, [id]);
-    
-      if (loading) {
-        return <p>Loading...</p>;
-      }
-    
-      if (!character) {
-        return <p>No character selected.</p>;
-      }
-    
-      return (
+    }, [id]);
+
+    if (loading) {
+        return <div className="loading">Loading character details...</div>;
+    }
+
+    if (error) {
+        return <div className="error">{error}</div>;
+    }
+
+    if (!character) {
+        return <div className="no-results">No character found</div>;
+    }
+
+    return (
         <div className="character-detail">
-          <h2>{character.name}</h2>
-          <p className="description">{character.description || "No description available."}</p>
-          {character.thumbnail && (
-            <img
-              src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-              alt={character.name}
-              className="character-thumbnail"
-            />
-          )}
-          <h3 className="comics-list-name">Comics:</h3>
-          <ul className="comics-list">
-            {character.comics.items.length > 0 ? (
-              character.comics.items.map((comic, index) => (
-                <li key={index}>{comic.name}</li>
-              ))
-            ) : (
-              <p>No comics found.</p>
-            )}
-          </ul>
+            <div className="character-detail-card">
+                <img 
+                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`.replace('http:', 'https:')}
+                    alt={character.name}
+                />
+                <div className="character-info">
+                    <h1>{character.name}</h1>
+                    <p className="description">
+                        {character.description || 'No description available.'}
+                    </p>
+                    
+                    {character.comics?.items?.length > 0 && (
+                        <div className="comics-section">
+                            <h2>Featured Comics</h2>
+                            <ul className="comics-list">
+                                {character.comics.items.slice(0, 5).map((comic, index) => (
+                                    <li key={index}>{comic.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {character.series?.items?.length > 0 && (
+                        <div className="series-section">
+                            <h2>Featured Series</h2>
+                            <ul className="series-list">
+                                {character.series.items.slice(0, 5).map((series, index) => (
+                                    <li key={index}>{series.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
-      );
-    };
-    
-    export default CharacterDetails;
+    );
+};
+
+export default CharacterDetails;
