@@ -13,13 +13,18 @@ const BrowseCharacters = () => {
         const fetchCharacters = async () => {
             try {
                 setLoading(true);
-                let url = `http://gateway.marvel.com/v1/public/characters?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&limit=100`;
+                let url = `https://gateway.marvel.com/v1/public/characters?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&limit=100`;
                 
                 if (searchTerm) {
                     url += `&nameStartsWith=${searchTerm}`;
                 }
 
-                const response = await axios.get(url);
+                const response = await axios.get(url, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
                 
                 if (response.data && response.data.data && response.data.data.results) {
                     setCharacters(response.data.data.results);
@@ -29,6 +34,7 @@ const BrowseCharacters = () => {
                     setCharacters([]);
                 }
             } catch (err) {
+                console.error('API Error:', err);
                 setError(err.message || 'Failed to fetch characters');
                 setCharacters([]);
             } finally {
@@ -38,7 +44,7 @@ const BrowseCharacters = () => {
 
         const timeoutId = setTimeout(() => {
             fetchCharacters();
-        }, 500); // Debounce search
+        }, 500);
 
         return () => clearTimeout(timeoutId);
     }, [searchTerm]);
@@ -76,7 +82,7 @@ const BrowseCharacters = () => {
                             className="character-card"
                         >
                             <img
-                                src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                                src={`${character.thumbnail.path}.${character.thumbnail.extension}`.replace('http:', 'https:')}
                                 alt={character.name}
                             />
                             <div>
